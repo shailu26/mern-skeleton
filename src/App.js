@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {lazy, Suspense} from 'react';
+import './App.scss';
+import * as Cookies from "js-cookie";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import * as $ from 'jquery';
+const LoginComponent = (lazy(() => (import ('./components/login/login'))));
+const HomeComponent = (lazy(() => (import ('./components/home/home'))));
+const Navbar = (lazy(() => (import ('./components/navbar/navbar'))));
+
+let component = () => {
+    return (
+        <div className='main-container'>
+            <Navbar/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Switch>
+                    <Route path='/' component={HomeComponent} exact/>
+                    {/* <Route path='/' component={requireAuth(HomeComponent)} exact/> */}
+                </Switch>
+            </Suspense>
+        </div>
+    )
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+            <div>
+                <BrowserRouter>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Switch>
+                            <Route exact path="/login" component={LoginComponent}/>
+                            <Route path='/' component={component}/>
+                        </Switch>
+                    </Suspense>
+                </BrowserRouter>
+            </div>
+    );
+
 }
 
 export default App;
