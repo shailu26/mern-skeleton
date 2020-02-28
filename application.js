@@ -5,7 +5,6 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path');
 const init = require('./routes/routes').init;
-console.log('....................', path);
 app.use(cors(), function (req, res, next) {
     res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Origin", '*');
