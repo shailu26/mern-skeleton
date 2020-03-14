@@ -18,4 +18,4 @@ let UserSchema = new Schema({
     phone: {type:Number}
 });
 
-export default mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
